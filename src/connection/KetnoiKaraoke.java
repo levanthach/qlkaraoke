@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package QLYKARAOKE;
+package connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,6 +17,8 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import controllers.TruyvanKaraoke;
+
 /**
  *
  * @author nguyenchienjf
@@ -28,17 +30,17 @@ private Connection con;
 DateFormat ngay = new SimpleDateFormat("dd-MM-yyyy");
 DateFormat gio= new SimpleDateFormat("HH:mm");
 Calendar cal = Calendar.getInstance();
-String ngayHt=ngay.format(cal.getTime());
-String gioHt=gio.format(cal.getTime());
+public String ngayHt=ngay.format(cal.getTime());
+public String gioHt=gio.format(cal.getTime());
 TruyvanKaraoke adapter=new TruyvanKaraoke();
-String demPhongTrong="where tinhtrang='0'";
-String demPhongDat="where tinhtrang='1'";
-String demPhongThuong="where loai_phong='1'";
-String demPhongVip="where loai_phong='2'";
-String demHddv="where tb_hoadondv.tinhtrang=N'0'";
-String demtien1="select gia_dv from tb_hoadondv, tb_dichvu where tb_dichvu.ma_dv=tb_hoadondv.ma_dv and tb_hoadondv.tinhtrang=N'0' order by ma_hddv asc";
+public String demPhongTrong="where tinhtrang='0'";
+public String demPhongDat="where tinhtrang='1'";
+public String demPhongThuong="where loai_phong='1'";
+public String demPhongVip="where loai_phong='2'";
+public String demHddv="where tb_hoadondv.tinhtrang=N'0'";
+public String demtien1="select gia_dv from tb_hoadondv, tb_dichvu where tb_dichvu.ma_dv=tb_hoadondv.ma_dv and tb_hoadondv.tinhtrang=N'0' order by ma_hddv asc";
 
-String ma_tk(String taikhoan,String matkhau)
+public String ma_tk(String taikhoan,String matkhau)
 {
 	String ma_tk="0";
 	try {
@@ -96,7 +98,7 @@ try{
 	JOptionPane.showMessageDialog(null,"lỗi lưu id");
 	}
 }
-String Id(String idlay,String idloai)
+public String Id(String idlay,String idloai)
 {
 	String ma="0";
 	try {
@@ -160,7 +162,7 @@ return select;
 
 public String itemLogin(String giatri)
 {
-String select="select * from tb_login where ma_tk=N'"+giatri+"'";
+String select="select * from tb_login where taikhoan='"+giatri+"'";
 return select;
 }
 public String itemTgden(String giatri)
@@ -296,7 +298,7 @@ public String iDhopdong(String maphong)
 		}
 }
 //lấy ma_hd của tb_hdtp insert những dòng có tinhtrang=2 + ma_hd (tương ứng tên phòng được chọn) 
-void themvaoBl(String ma_hd)
+public void themvaoBl(String ma_hd)
 {
 		try{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -308,8 +310,8 @@ void themvaoBl(String ma_hd)
 			JOptionPane.showMessageDialog(null, "Lỗi thêm HDdv,Hd vao bien lai!" + ex.toString());
 		}
 }
-    public void dvThanhToanSau(String maphong)
-   {
+public void dvThanhToanSau(String maphong)
+{
    //update cot tinh trang của tb_hoadondv từ 0 thành 2
 	adapter.updateHDDV("2","0");
 	//lấy những cột tinhtrang=2 + ma_hd( tương ứng phòng được chọn) chèn vào tb_bienlai

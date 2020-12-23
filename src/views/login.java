@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package QLYKARAOKE;
+package views;
 
 
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.border.EmptyBorder;
+
+import connection.KetnoiKaraoke;
 /**
  *
  * @author nguyenchienjf
@@ -121,7 +123,7 @@ public class login extends javax.swing.JFrame {
 		mainchinh main=new mainchinh();
 		main.setVisible(true);
     	main.setLocationRelativeTo(null);
-    	JOptionPane.showMessageDialog(null,"Chào "+adapterCtr.cellTb("ten_tk",adapterCtr.itemLogin(adapterCtr.Id("id_1","id")))+"!",null,JOptionPane.INFORMATION_MESSAGE);
+    	JOptionPane.showMessageDialog(null,"Chào "+adapterCtr.cellTb("ten_tk",adapterCtr.itemLogin(tk))+"!",null,JOptionPane.INFORMATION_MESSAGE);
     	dispose();
 		}
 			}

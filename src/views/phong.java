@@ -3,13 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package QLYKARAOKE;
+package views;
 
 
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.border.*;
+
+import connection.KetnoiKaraoke;
+import controllers.TruyvanKaraoke;
+
 import java.util.*;
 /**
  *
@@ -17,7 +21,7 @@ import java.util.*;
  */
 public class phong extends javax.swing.JFrame {
     
-        TruyvanKaraoke adapterMd = new TruyvanKaraoke();
+    TruyvanKaraoke adapterMd = new TruyvanKaraoke();
 	KetnoiKaraoke adapterCtr = new KetnoiKaraoke();
 	private JPanel contentPane;
 	private JTextField txtTen;

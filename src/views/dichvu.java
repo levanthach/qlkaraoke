@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package QLYKARAOKE;
+package views;
 
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
+
+import connection.KetnoiKaraoke;
+import controllers.TruyvanKaraoke;
 /**
  *
  * @author nguyenchienjf
