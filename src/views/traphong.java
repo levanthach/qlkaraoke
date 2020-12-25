@@ -46,7 +46,7 @@ public class traphong extends javax.swing.JFrame {
      */
     public traphong() {
         initComponents();
-        setTitle("Hóa Đơn Karaoke Nguyễn Chiến JF");
+        setTitle("Hóa Đơn Karaoke");
 		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
