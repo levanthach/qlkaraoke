@@ -22,11 +22,11 @@ public class nhanvien extends javax.swing.JFrame {
     KetnoiKaraoke adapterCtr=new KetnoiKaraoke();
 	private JPanel contentPane;
 	private JTextField txtTenNv;
-	private JTextField txtChucvu;
-	private JTextField txtLuong;
-	private JTextField txtNamsinh;
+	private JTextField txtPhone;
+	private JTextField txtUsername;
+	private JTextField txtPassword;
 	private JTable tblNv;
-	private JTextField txtChuthich;
+	private JTextField txtEmail;
 	private JComboBox comboBox;
 	String IdNv="";
 	String chonGioitinh=new String();
@@ -68,11 +68,11 @@ public class nhanvien extends javax.swing.JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 			IdNv=tblNv.getModel().getValueAt(tblNv.getSelectedRow(),0).toString();
-			txtTenNv.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),1).toString());
-			txtChucvu.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),2).toString());
-			txtLuong.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),3).toString());
-			txtNamsinh.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),4).toString());
-			txtChuthich.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),6).toString());
+			txtTenNv.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),2).toString());
+			txtPhone.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),4).toString());
+			txtUsername.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),1).toString());
+			txtEmail.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),5).toString());
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {tblNv.getModel().getValueAt(tblNv.getSelectedRow(),3).toString()}));
 			}
 		});
 		scrollPane.setViewportView(tblNv);
@@ -93,30 +93,30 @@ public class nhanvien extends javax.swing.JFrame {
 		panel_2.add(txtTenNv);
 		txtTenNv.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Chức vụ :");
+		JLabel lblNewLabel_1 = new JLabel("Số ĐT :");
 		lblNewLabel_1.setBounds(18, 67, 65, 14);
 		panel_2.add(lblNewLabel_1);
 		
-		txtChucvu = new JTextField();
-		txtChucvu.setBounds(85, 59, 150, 30);
-		panel_2.add(txtChucvu);
-		txtChucvu.setColumns(10);
+		txtPhone = new JTextField();
+		txtPhone.setBounds(85, 59, 150, 30);
+		panel_2.add(txtPhone);
+		txtPhone.setColumns(10);
 		
-		txtLuong = new JTextField();
-		txtLuong.setBounds(340, 28, 150, 30);
-		panel_2.add(txtLuong);
-		txtLuong.setColumns(10);
+		txtUsername = new JTextField();
+		txtUsername.setBounds(340, 28, 150, 30);
+		panel_2.add(txtUsername);
+		txtUsername.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("Lương :");
+		JLabel lblNewLabel_2 = new JLabel("Tên TK :");
 		lblNewLabel_2.setBounds(280, 36, 65, 14);
 		panel_2.add(lblNewLabel_2);
 		
-		txtNamsinh = new JTextField();
-		txtNamsinh.setBounds(340, 59, 150, 30);
-		panel_2.add(txtNamsinh);
-		txtNamsinh.setColumns(10);
+		txtPassword = new JTextField();
+		txtPassword.setBounds(340, 59, 150, 30);
+		panel_2.add(txtPassword);
+		txtPassword.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("Năm sinh :");
+		JLabel lblNewLabel_3 = new JLabel("Mật khẩu :");
 		lblNewLabel_3.setBounds(280, 67, 65, 14);
 		panel_2.add(lblNewLabel_3);
 		
@@ -126,8 +126,8 @@ public class nhanvien extends javax.swing.JFrame {
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				if(comboBox.getSelectedIndex()==0) chonGioitinh="chưa rõ";
-				else if(comboBox.getSelectedIndex()==1) chonGioitinh="1";
-				else if(comboBox.getSelectedIndex()==2) chonGioitinh="0";
+				else if(comboBox.getSelectedIndex()==1) chonGioitinh="Nam";
+				else if(comboBox.getSelectedIndex()==2) chonGioitinh="Nữ";
 			}
 		});
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"--Chọn--", "Nam", "Nữ"}));
@@ -136,12 +136,12 @@ public class nhanvien extends javax.swing.JFrame {
 		lblNewLabel_4.setBounds(530, 36, 65, 14);
 		panel_2.add(lblNewLabel_4);
 		
-		txtChuthich = new JTextField();
-		txtChuthich.setBounds(590, 59, 150, 30);
-		panel_2.add(txtChuthich);
-		txtChuthich.setColumns(10);
+		txtEmail = new JTextField();
+		txtEmail.setBounds(590, 59, 150, 30);
+		panel_2.add(txtEmail);
+		txtEmail.setColumns(10);
 		
-		JLabel lblNewLabel_5 = new JLabel("Chú thích :");
+		JLabel lblNewLabel_5 = new JLabel("Email :");
 		lblNewLabel_5.setBounds(530, 67, 65, 14);
 		panel_2.add(lblNewLabel_5);
 		
@@ -154,19 +154,21 @@ public class nhanvien extends javax.swing.JFrame {
 		panel_2.add(btnXoa);
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String quyen=adapterCtr.cellTb("tinhtrang",adapterCtr.itemLogin(adapterCtr.Id("id_1","id")));
-				if(!quyen.equals("1")) {JOptionPane.showMessageDialog(null,"Bạn không được sử dụng chức năng này!");
-				return;
-				}
 				if(IdNv.equals(""))
 				{
-	      JOptionPane.showMessageDialog(null, "Chưa chọn nhân viên");
+					JOptionPane.showMessageDialog(null, "Chưa chọn nhân viên");
 				}
 				else 
 				{
-		   adapterMd.XoaId("tb_nhanvien","ma_nv",IdNv);
-		   tblNv.setModel(adapterMd.loadAllNv());
-		   
+					adapterMd.XoaId("tb_nhanvien","ma_nv",IdNv);
+					tblNv.setModel(adapterMd.loadAllNv());
+					txtTenNv.setText("");
+					txtEmail.setText("");
+					txtPassword.setText("");
+					txtPhone.setText("");
+					txtUsername.setText("");
+					IdNv="";
+					comboBox.setModel(new DefaultComboBoxModel(new String[] {"--Chọn--", "Nam", "Nữ"}));
 				}
 			}
 		});
@@ -180,25 +182,26 @@ public class nhanvien extends javax.swing.JFrame {
                 
                 btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String quyen=adapterCtr.cellTb("tinhtrang",adapterCtr.itemLogin(adapterCtr.Id("id_1","id")));
-				if(!quyen.equals("1")) {JOptionPane.showMessageDialog(null,"Bạn không được sử dụng chức năng này!");
-				return;
+				if(txtTenNv.getText().equals("")) JOptionPane.showMessageDialog(null, "Kiểm tra lại tên");
+				else if(chonGioitinh.equals("Nam")||chonGioitinh.equals("Nữ")) 
+				{
+					adapterMd.ThemNhanVien(txtTenNv.getText(),txtUsername.getText(),txtPassword.getText(),chonGioitinh,txtPhone.getText(),txtEmail.getText());
+					adapterMd=new TruyvanKaraoke();
+					tblNv.setModel(adapterMd.loadAllNv());
+					txtTenNv.setText("");
+					txtEmail.setText("");
+					txtPassword.setText("");
+					txtPhone.setText("");
+					txtUsername.setText("");
+					IdNv="";
+					comboBox.setModel(new DefaultComboBoxModel(new String[] {"--Chọn--", "Nam", "Nữ"}));
 				}
-		if(txtTenNv.getText().equals("")) JOptionPane.showMessageDialog(null, "Kiểm tra lại tên");
-		else if(chonGioitinh.equals("1")||chonGioitinh.equals("0")) 
-		{
-			  adapterMd.ThemNhanVien(txtTenNv.getText(),txtChucvu.getText(),txtLuong.getText(),txtNamsinh.getText(),chonGioitinh,txtChuthich.getText());
-			  adapterMd=new TruyvanKaraoke();
-			  tblNv.setModel(adapterMd.loadAllNv());
-			  
-			
-		}
-		else
-		{
-			JOptionPane.showMessageDialog(null, "Chưa chọn giới tính");
-		}
-			}
-		});
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Chưa chọn giới tính");
+				}
+				}
+                });
 		
 		JLabel lblNewLabel_8 = new JLabel("QUẢN LÝ NHÂN VIÊN");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 16));

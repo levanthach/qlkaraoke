@@ -7,7 +7,6 @@ package controllers;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -74,13 +73,13 @@ public class TruyvanKaraoke {
 		JOptionPane.showMessageDialog(null, "Lỗi khi thêm khách hàng!" + ex.toString());
 	}
 	}
-	public void ThemPhong(String ten_phong,String loai_phong,String gia_phong,String chuthich)
+	public void ThemPhong(String ten_phong,String loai_phong,String gia_phong)
 	{
 			try{
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 				con = DriverManager.getConnection(chuoikn);
 				Statement st = con.createStatement();
-				int i = st.executeUpdate("insert into tb_phong  values(N'"+Id("tb_phong","ma_phong")+"',N'" +ten_phong+"',N'" +loai_phong+"',N'" +gia_phong+"',N'" +chuthich+"',N'0')");
+				int i = st.executeUpdate("insert into tb_phong(ten_phong, loai_phong, gia_phong, tinh_trang)  values(N'" +ten_phong+"',N'" +loai_phong+"',N'" +gia_phong+"',0)");
 			//	if(i>0&&tinhtrang==1) JOptionPane.showMessageDialog(null, "Phòng đã được đặt");
 				if(i>0) JOptionPane.showMessageDialog(null, "Đã thêm phòng");
 			}catch(Exception ex)
@@ -170,13 +169,13 @@ public class TruyvanKaraoke {
 				JOptionPane.showMessageDialog(null, "Lỗi khi thêm biên lai!" + ex.toString());
 			}
 	}
-  public void ThemNhanVien(String ten_nv,String chucvu_nv,String luong_nv,String namsinh_nv,String gioitinh_nv,String chuthich_nv)
+  public void ThemNhanVien(String ten_nv,String username,String password,String gioi_tinh,String phone,String email)
 	{
 			try{
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 				con = DriverManager.getConnection(chuoikn);
 				Statement st = con.createStatement();
-				int i = st.executeUpdate("insert into tb_nhanvien  values(N'"+Id("tb_nhanvien","ma_nv")+"',N'"+ten_nv+"',N'"+chucvu_nv+"',N'"+luong_nv+"',N'"+namsinh_nv+"',N'"+gioitinh_nv+"',N'"+chuthich_nv+"')");
+				int i = st.executeUpdate("insert into tb_nhanvien(username, password, name, gioi_tinh, phone, email)  values(N'"+username+"',N'"+password+"',N'"+ten_nv+"',N'"+gioi_tinh+"',N'"+phone+"',N'"+email+"')");
 				if(i>0) JOptionPane.showMessageDialog(null, "Nhân viên đã được thêm");
 			}catch(Exception ex)
 			{
@@ -522,22 +521,21 @@ ResultSet rs = st.executeQuery("select DISTINCT tb_khachhang.ma_kh,ten_kh,cmnd_k
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		Connection con = DriverManager.getConnection(chuoikn);
 		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery("select ma_nv,ten_nv,chucvu_nv,luong_nv,namsinh_nv,case when gioitinh_nv=1 then N'Nam' else N'Nữ' end as gioitinh_nv,chuthich_nv from tb_nhanvien order by ma_nv asc");
-			String[] tieudecot = {"Mã NV","Tên NV","Chức vụ","Lương","Năm sinh","Giới tính","Chú thích"};
+		ResultSet rs = st.executeQuery("select ma_nv,username, name, gioi_tinh,phone,email from tb_nhanvien order by ma_nv asc");
+			String[] tieudecot = {"Mã NV","Tên TK", "Tên NV", "Giới tính", "SĐT","Email"};
 			ArrayList<String[]> dulieubang = new ArrayList<String[]>();
 			while(rs.next())
 			{
-				String[] dong = new String[7];
+				String[] dong = new String[6];
 				dong[0] = rs.getString("ma_nv");
-				dong[1] = rs.getString("ten_nv");
-				dong[2] = rs.getString("chucvu_nv");
-				dong[3] = rs.getString("luong_nv");
-				dong[4] = rs.getString("namsinh_nv");
-				dong[5] = rs.getString("gioitinh_nv");
-				dong[6] = rs.getString("chuthich_nv");
+				dong[1] = rs.getString("username");
+				dong[2] = rs.getString("name");
+				dong[3] = rs.getString("gioi_tinh");
+				dong[4] = rs.getString("phone");
+				dong[5] = rs.getString("email");
 				dulieubang.add(dong);
 			}
-			String[][] data = new String[dulieubang.size()][7];
+			String[][] data = new String[dulieubang.size()][6];
 			for(int i=0; i<dulieubang.size(); i++)
 			{
 				data[i]=dulieubang.get(i);
@@ -857,7 +855,40 @@ ResultSet rs = st.executeQuery("select DISTINCT tb_khachhang.ma_kh,ten_kh,cmnd_k
 			return null;
 		}
 	}
-
+	
+	public DefaultTableModel loadDt(String time)
+	{
+	try {
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		Connection con = DriverManager.getConnection(chuoikn);
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("select ma_nv,username, name, gioi_tinh,phone,email from tb_nhanvien order by ma_nv asc");
+			String[] tieudecot = {"Mã NV","Tên TK", "Tên NV", "Giới tính", "SĐT","Email"};
+			ArrayList<String[]> dulieubang = new ArrayList<String[]>();
+			while(rs.next())
+			{
+				String[] dong = new String[6];
+				dong[0] = rs.getString("ma_nv");
+				dong[1] = rs.getString("username");
+				dong[2] = rs.getString("name");
+				dong[3] = rs.getString("gioi_tinh");
+				dong[4] = rs.getString("phone");
+				dong[5] = rs.getString("email");
+				dulieubang.add(dong);
+			}
+			String[][] data = new String[dulieubang.size()][6];
+			for(int i=0; i<dulieubang.size(); i++)
+			{
+				data[i]=dulieubang.get(i);
+			}
+			tbModel.setDataVector(data,tieudecot);
+			return tbModel;
+	}
+	catch(Exception ex){
+		JOptionPane.showMessageDialog(null, "Lỗi khi load Nv"+ex.toString());
+		return null;
+	}
+	}
    
 }
 

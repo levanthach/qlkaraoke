@@ -6,12 +6,12 @@ Drop database QLYKARAOKE
 --Tạo bảng Nhân Viên
 CREATE TABLE tb_nhanvien(
 ma_nv int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-username char(40) NOT NULL,
-password char(40) NOT NULL,
+username nvarchar(40) NOT NULL,
+password nvarchar(40) NOT NULL,
 name nvarchar(40) NOT NULL,
 gioi_tinh nvarchar(20) NOT NULL,
 phone int NOT NULL,
-email char(40)
+email nvarchar(40)
 )
 
 --Tạo bảng Khách Hàng
@@ -68,10 +68,10 @@ ALTER TABLE tb_cthd ADD PRIMARY KEY (ma_hd,ma_kh)
 
 SET DATEFORMAT dmy
 
-INSERT tb_nhanvien(username, password, name, gioi_tinh, phone, email) VALUES ('admin', '123', N'Admin', N'Nữ', 123456, 'admin@gmail.com')
-INSERT tb_nhanvien(username, password, name, gioi_tinh, phone, email) VALUES ('kimvy', '123', N'Kim Vy', N'Nam', 123456, 'kimvy@gmail.com')
-INSERT tb_nhanvien(username, password, name, gioi_tinh, phone, email) VALUES ('thach', '123', N'Thạch', N'Nam', 123456, 'thach@gmail.com')
-INSERT tb_nhanvien(username, password, name, gioi_tinh, phone, email) VALUES ('thinh', '123', N'Thịnh', N'Nam', 123456, 'thinh@gmail.com')
+INSERT tb_nhanvien(username, password, name, gioi_tinh, phone, email) VALUES (N'admin', '123', N'Admin', N'Nữ', 123456, N'admin@gmail.com')
+INSERT tb_nhanvien(username, password, name, gioi_tinh, phone, email) VALUES (N'kimvy', '123', N'Kim Vy', N'Nam', 123456, N'kimvy@gmail.com')
+INSERT tb_nhanvien(username, password, name, gioi_tinh, phone, email) VALUES (N'thach', '123', N'Thạch', N'Nam', 123456, N'thach@gmail.com')
+INSERT tb_nhanvien(username, password, name, gioi_tinh, phone, email) VALUES (N'thinh', '123', N'Thịnh', N'Nam', 123456, N'thinh@gmail.com')
 
 INSERT tb_khachhang(ho_ten, phone, dia_chi, ngay_sinh) VALUES ( N'Nguyễn Văn A', 654321, N'Quận 1, TPHCM', '01-01-1990')
 INSERT tb_khachhang(ho_ten, phone, dia_chi, ngay_sinh) VALUES ( N'Nguyễn Thị B', 654321, N'Quận 2, TPHCM', '01-01-1991')
@@ -101,3 +101,18 @@ INSERT tb_sanpham(ten_sp, so_luong, don_vi_tinh, don_gia, tinh_trang) VALUES (N'
 INSERT tb_sanpham(ten_sp, so_luong, don_vi_tinh, don_gia, tinh_trang) VALUES (N'Thuốc Jet', 200, 'Gói', 25000, 1)
 INSERT tb_sanpham(ten_sp, so_luong, don_vi_tinh, don_gia, tinh_trang) VALUES (N'Thuốc 555', 200, 'Gói', 40000, 1)
 INSERT tb_sanpham(ten_sp, so_luong, don_vi_tinh, don_gia, tinh_trang) VALUES (N'Khác', 1, 'Theo yêu cầu', 1, 1)
+
+INSERT tb_hoadon(ma_phong, ma_kh, ma_nv,tong_tien,thoi_gian) VALUES (1,1,2,500000,'01/05/2020')
+INSERT tb_hoadon(ma_phong, ma_kh, ma_nv,tong_tien,thoi_gian) VALUES (1,2,1,800000,'03/05/2020')
+INSERT tb_hoadon(ma_phong, ma_kh, ma_nv,tong_tien,thoi_gian) VALUES (4,3,3,2000000,'20/09/2019')
+INSERT tb_hoadon(ma_phong, ma_kh, ma_nv,tong_tien,thoi_gian) VALUES (3,2,1,1000000,'17/06/2020')
+INSERT tb_hoadon(ma_phong, ma_kh, ma_nv,tong_tien,thoi_gian) VALUES (2,1,2,700000,'21/06/2020')
+INSERT tb_hoadon(ma_phong, ma_kh, ma_nv,tong_tien,thoi_gian) VALUES (1,1,2,500000,'01/05/2020')
+INSERT tb_hoadon(ma_phong, ma_kh, ma_nv,tong_tien,thoi_gian) VALUES (1,5,2,300000,'01/09/2020')
+
+select YEAR(thoi_gian) as nam,MONTH(thoi_gian) as tháng, SUM(tong_tien) as doanhthu
+from tb_hoadon
+group by YEAR(thoi_gian), MONTH(thoi_gian)
+
+
+delete  from tb_hoadon
