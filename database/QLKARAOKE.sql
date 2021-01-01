@@ -110,9 +110,3 @@ INSERT tb_hoadon(ma_phong, ma_kh, ma_nv,tong_tien,thoi_gian) VALUES (2,1,2,70000
 INSERT tb_hoadon(ma_phong, ma_kh, ma_nv,tong_tien,thoi_gian) VALUES (1,1,2,500000,'01/05/2020')
 INSERT tb_hoadon(ma_phong, ma_kh, ma_nv,tong_tien,thoi_gian) VALUES (1,5,2,300000,'01/09/2020')
 
-select YEAR(thoi_gian) as nam,MONTH(thoi_gian) as tháng, SUM(tong_tien) as doanhthu
-from tb_hoadon
-group by YEAR(thoi_gian), MONTH(thoi_gian)
-
-
-delete  from tb_hoadon

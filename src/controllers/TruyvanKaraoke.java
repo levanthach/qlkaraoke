@@ -8,6 +8,9 @@ package controllers;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import org.w3c.dom.ls.LSOutput;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -862,26 +865,93 @@ ResultSet rs = st.executeQuery("select DISTINCT tb_khachhang.ma_kh,ten_kh,cmnd_k
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		Connection con = DriverManager.getConnection(chuoikn);
 		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery("select ma_nv,username, name, gioi_tinh,phone,email from tb_nhanvien order by ma_nv asc");
-			String[] tieudecot = {"Mã NV","Tên TK", "Tên NV", "Giới tính", "SĐT","Email"};
+		ResultSet rs = st.executeQuery("select thoi_gian, SUM(tong_tien) as doanhthu from tb_hoadon where thoi_gian='"+time+"' group by thoi_gian");
+			String[] tieudecot = {"Thời gian","Doanh thu"};
 			ArrayList<String[]> dulieubang = new ArrayList<String[]>();
 			while(rs.next())
 			{
-				String[] dong = new String[6];
-				dong[0] = rs.getString("ma_nv");
-				dong[1] = rs.getString("username");
-				dong[2] = rs.getString("name");
-				dong[3] = rs.getString("gioi_tinh");
-				dong[4] = rs.getString("phone");
-				dong[5] = rs.getString("email");
+				String[] dong = new String[2];
+				dong[0] = rs.getString("thoi_gian");
+				dong[1] = rs.getString("doanhthu");
 				dulieubang.add(dong);
 			}
-			String[][] data = new String[dulieubang.size()][6];
+			String[][] data = new String[dulieubang.size()][2];
 			for(int i=0; i<dulieubang.size(); i++)
 			{
 				data[i]=dulieubang.get(i);
 			}
 			tbModel.setDataVector(data,tieudecot);
+			return tbModel;
+	}
+	catch(Exception ex){
+		JOptionPane.showMessageDialog(null, "Lỗi khi load Nv"+ex.toString());
+		return null;
+	}
+	}
+	
+	
+	public DefaultTableModel loadDtFor(String chonHt)
+	{
+	try {
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		Connection con = DriverManager.getConnection(chuoikn);
+		Statement st = con.createStatement();
+		ArrayList<String[]> dulieubang = new ArrayList<String[]>();
+		if(chonHt=="1")
+		{
+			ResultSet rs = st.executeQuery("select thoi_gian, SUM(tong_tien) as doanhthu from tb_hoadon group by thoi_gian");
+			while(rs.next())
+			{
+				String[] dong = new String[2];
+				dong[0] = rs.getString("thoi_gian");
+				dong[1] = rs.getString("doanhthu");
+				dulieubang.add(dong);
+			}
+			String[] tieudecot = {"Thời gian","Doanh thu"};
+			String[][] data = new String[dulieubang.size()][2];
+			for(int i=0; i<dulieubang.size(); i++)
+			{
+				data[i]=dulieubang.get(i);
+			}
+			tbModel.setDataVector(data,tieudecot);
+		}
+		else if(chonHt == "2")
+		{
+			ResultSet rs = st.executeQuery("select year(thoi_gian) as nam, month(thoi_gian) as thang, sum(tong_tien) as doanhthu from tb_hoadon group by year(thoi_gian),month(thoi_gian)");
+			while(rs.next())
+			{
+				String[] dong = new String[3];
+				dong[0] = rs.getString("nam");
+				dong[1] = rs.getString("thang");
+				dong[2] = rs.getString("doanhthu");
+				dulieubang.add(dong);
+			}
+			String[] tieudecot = {"Năm", "Tháng", "Doanh thu"};
+			String[][] data = new String[dulieubang.size()][3];
+			for(int i=0; i<dulieubang.size(); i++)
+			{
+				data[i]=dulieubang.get(i);
+			}
+			tbModel.setDataVector(data,tieudecot);
+		}
+		else
+		{
+			ResultSet rs = st.executeQuery("select year(thoi_gian)as nam, sum(tong_tien) as doanhthu from tb_hoadon group by year(thoi_gian)");
+			while(rs.next())
+			{
+				String[] dong = new String[2];
+				dong[0] = rs.getString("nam");
+				dong[1] = rs.getString("doanhthu");
+				dulieubang.add(dong);
+			}
+			String[] tieudecot = {"Năm","Doanh thu"};
+			String[][] data = new String[dulieubang.size()][2];
+			for(int i=0; i<dulieubang.size(); i++)
+			{
+				data[i]=dulieubang.get(i);
+			}
+			tbModel.setDataVector(data,tieudecot);
+		}
 			return tbModel;
 	}
 	catch(Exception ex){
