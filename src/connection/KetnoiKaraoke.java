@@ -238,32 +238,31 @@ public String cellTb(String col,String select)
 	{
 	DefaultTableModel tbModel=new DefaultTableModel();
 	String where="";
-	if(j==0) where="where tinhtrang=N'0'";
-	else if(j==1) where="where tinhtrang=N'1'";
-	else if(j==2) where="where loai_phong=N'1'";
-	else if(j==3) where="where loai_phong=N'2'";
+	if(j==0) where="where tinh_trang=N'0'";
+	else if(j==1) where="where tinh_trang=N'1'";
+	else if(j==2) where="where loai_phong=N'Thường'";
+	else if(j==3) where="where loai_phong=N'Vip'";
 	else where="";
 	try {
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		Connection con = DriverManager.getConnection(ketnoi);
 		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery("select ma_phong,ten_phong,case loai_phong when 1 then N'phòng thường' else N'Phòng Vip' end as loai_phong,gia_phong,chuthich,case when tinhtrang=1 then N'Phòng đã đặt' else N'Phòng trống' end as tinhtrang from tb_phong "+where+" order by ma_phong asc");//load du lieu len JTable
+		ResultSet rs = st.executeQuery("select ma_phong,ten_phong,loai_phong,gia_phong,case when tinh_trang=1 then N'Phòng đã đặt' else N'Phòng trống' end as tinh_trang from tb_phong "+where+" order by ma_phong asc");//load du lieu len JTable
 
-			String[] tieudecot = {"Mã Phòng","Tên Phòng","Loại Phòng","Giá Phòng","Tình trạng","Chú thích"};
+			String[] tieudecot = {"Mã Phòng","Tên Phòng","Loại Phòng","Giá Phòng","Tình trạng"};
 			ArrayList<String[]> dulieubang = new ArrayList<String[]>();
 			while(rs.next())
 			{
-				String[] dong = new String[6];
+				String[] dong = new String[5];
 				dong[0] = rs.getString("ma_phong");
 				dong[1] = rs.getString("ten_phong");
 				dong[2] = rs.getString("loai_phong");
 				dong[3]=rs.getString("gia_phong");
-				dong[4]=rs.getString("tinhtrang");
-				dong[5]=rs.getString("chuthich");
+				dong[4]=rs.getString("tinh_trang");
 				dulieubang.add(dong);
 			}
 			//
-			String[][] data = new String[dulieubang.size()][6];
+			String[][] data = new String[dulieubang.size()][5];
 			for(int i=0; i<dulieubang.size(); i++)
 			{
 				data[i]=dulieubang.get(i);

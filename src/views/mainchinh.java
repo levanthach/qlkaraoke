@@ -427,7 +427,7 @@ public class mainchinh extends javax.swing.JFrame {
                 contentPane.add(btnNewButton_7);
 		btnNewButton_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		thongtin tt=new thongtin();
+		doanhthu tt=new doanhthu();
 		tt.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		tt.setVisible(true);
 		tt.setLocationRelativeTo(null);
