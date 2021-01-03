@@ -20,8 +20,8 @@ import java.util.*;
  */
 public class khachhang extends javax.swing.JFrame {
     
-        TruyvanKaraoke adapterMd=new TruyvanKaraoke();
-        KetnoiKaraoke adapterCtr=new KetnoiKaraoke();
+	TruyvanKaraoke adapterMd=new TruyvanKaraoke();
+	KetnoiKaraoke adapterCtr=new KetnoiKaraoke();
 	private JPanel contentPane;
 	private JTextField txtTen;
 	private JTextField txtCmnd;	

@@ -21,7 +21,7 @@ public class login extends javax.swing.JFrame {
     /**
      * Creates new form viewLogin
      */
-        private JPanel contentPane;
+    private JPanel contentPane;
 	private JTextField txttk;
 	KetnoiKaraoke adapterCtr=new KetnoiKaraoke();
 	private JButton btnNewButton;
@@ -112,23 +112,24 @@ public class login extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(null,"vui lòng nhập mật khẩu");
                                 
                         }
-		else if(adapterCtr.demDong("tb_nhanvien",adapterCtr.demTaikhoan(txttk.getText(),String.valueOf(pfMk.getPassword()))).equals("0"))
+		else if(adapterCtr.demDong("tb_login",adapterCtr.demTaikhoan(txttk.getText(),String.valueOf(pfMk.getPassword()))).equals("0"))
 		JOptionPane.showMessageDialog(null,"Nhập sai tài khoản hoặc mật khẩu");
-		else if(!adapterCtr.demDong("tb_nhanvien",adapterCtr.demTaikhoan(txttk.getText(),String.valueOf(pfMk.getPassword()))).equals("0"))
+		else if(!adapterCtr.demDong("tb_login",adapterCtr.demTaikhoan(txttk.getText(),String.valueOf(pfMk.getPassword()))).equals("0"))
 		{
 		String tk=txttk.getText();
 		String mk=String.valueOf(pfMk.getPassword());
-		//String matk=adapterCtr.ma_tk(tk,mk);
-		//adapterCtr.luuid("*",matk);
+		String matk=adapterCtr.ma_tk(tk,mk);
+		adapterCtr.luuid("*",matk);
 		mainchinh main=new mainchinh();
 		main.setVisible(true);
     	main.setLocationRelativeTo(null);
-    	JOptionPane.showMessageDialog(null,"Chào "+adapterCtr.cellTb("name",adapterCtr.itemLogin(tk))+"!",null,JOptionPane.INFORMATION_MESSAGE);
+    	JOptionPane.showMessageDialog(null,"Chào "+adapterCtr.cellTb("ten_tk",adapterCtr.itemLogin(adapterCtr.Id("id_1","id")))+"!",null,JOptionPane.INFORMATION_MESSAGE);
     	dispose();
 		}
 			}
 		});
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

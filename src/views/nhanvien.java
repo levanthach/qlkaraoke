@@ -18,8 +18,8 @@ import controllers.TruyvanKaraoke;
  */
 public class nhanvien extends javax.swing.JFrame {
     
-    TruyvanKaraoke adapterMd=new TruyvanKaraoke();
-    KetnoiKaraoke adapterCtr=new KetnoiKaraoke();
+	TruyvanKaraoke adapterMd=new TruyvanKaraoke();
+	KetnoiKaraoke adapterCtr=new KetnoiKaraoke();
 	private JPanel contentPane;
 	private JTextField txtTenNv;
 	private JTextField txtChucvu;

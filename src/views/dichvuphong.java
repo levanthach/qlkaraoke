@@ -10,8 +10,8 @@ import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.border.*;
 
-import connection.KetnoiKaraoke;
 import controllers.TruyvanKaraoke;
+import connection.KetnoiKaraoke;
 /**
  *
  * @author nguyenchienjf

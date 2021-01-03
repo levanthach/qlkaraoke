@@ -19,8 +19,8 @@ import controllers.TruyvanKaraoke;
  */
 public class dichvu extends javax.swing.JFrame {
     
-        TruyvanKaraoke adapterMd=new TruyvanKaraoke();
-        KetnoiKaraoke adapterCtr=new KetnoiKaraoke();
+	TruyvanKaraoke adapterMd=new TruyvanKaraoke();
+	KetnoiKaraoke adapterCtr=new KetnoiKaraoke();
 	private JPanel contentPane;
 	private JTextField txtTenKh;
 	private JTable tblDv;

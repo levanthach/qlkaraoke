@@ -18,7 +18,7 @@ import controllers.TruyvanKaraoke;
  */
 public class hoadon extends javax.swing.JFrame {
     
-    	private JPanel contentPane;
+    private JPanel contentPane;
 	private JTable table;
 	TruyvanKaraoke adapterMd=new TruyvanKaraoke();
 	KetnoiKaraoke adapterCtr=new KetnoiKaraoke();
