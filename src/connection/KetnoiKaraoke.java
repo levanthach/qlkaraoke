@@ -125,7 +125,7 @@ return demtien2;
 }
 public String demTaikhoan(String taikhoan,String matkhau)
 {
-	String where="where username='"+taikhoan+"' and password='"+matkhau+"'";
+	String where="where taikhoan=N'"+taikhoan+"' and matkhau=N'"+matkhau+"'";
 	return where;
 }
 public String demKhach(String giatri)
@@ -162,7 +162,7 @@ return select;
 
 public String itemLogin(String giatri)
 {
-String select="select * from tb_nhanvien where username='"+giatri+"'";
+String select="select * from tb_login where taikhoan='"+giatri+"'";
 return select;
 }
 public String itemTgden(String giatri)
