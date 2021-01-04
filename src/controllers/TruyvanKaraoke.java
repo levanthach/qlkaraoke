@@ -843,7 +843,7 @@ ResultSet rs = st.executeQuery("select DISTINCT tb_khachhang.ma_kh,ten_kh,cmnd_k
 	public DefaultComboBoxModel loadNhanvienCmb()
 	{ 
 		cmbModel=new DefaultComboBoxModel();
-		cmbModel.addElement("chọn nv:");
+		cmbModel.addElement("Chọn Nv:");
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			Connection con = DriverManager.getConnection(chuoikn);
