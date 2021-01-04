@@ -41,6 +41,7 @@ public class traphong extends javax.swing.JFrame {
 	private JLabel lbltientt;
 	private JTextField txtgioden;
 	private JTextField txtgioht;
+	private int thanhtoan;
     /**
      * Creates new form viewBienlai
      */
@@ -231,6 +232,8 @@ public class traphong extends javax.swing.JFrame {
 			adapterMd.XoaKnpTp(idP);
 			// xóa hợp đồng thuê phòng theo phòng
 			adapterMd.XoaHdTp(idP);
+			// lưu doanh thu
+			adapterMd.luuDoanhThu(thanhtoan);
 			JOptionPane.showMessageDialog(null,"Đã in biên lai, tất cả dữ liệu đã xóa!");
 			tblphong.setModel(adapterMd.loadPhong("1"));
 	}
@@ -323,7 +326,7 @@ public class traphong extends javax.swing.JFrame {
 			    	}
 			    else tien=Integer.parseInt(sogio)*Integer.parseInt(txtgiaphong.getText().toString());
 			    txttongtien.setText(tien+" VNĐ");
-			    int thanhtoan=tien+Integer.parseInt(adapterCtr.demTien(adapterCtr.demtien2(idP)));
+			    thanhtoan=tien+Integer.parseInt(adapterCtr.demTien(adapterCtr.demtien2(idP)));
 			    lbltientt.setText(thanhtoan+" VNĐ");
 			}
 		});

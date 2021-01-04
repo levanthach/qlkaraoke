@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Vector;
@@ -860,13 +861,28 @@ ResultSet rs = st.executeQuery("select DISTINCT tb_khachhang.ma_kh,ten_kh,cmnd_k
 		}
 	}
 	
+	public void luuDoanhThu(int thanhtoan)
+	{
+		LocalDate i = java.time.LocalDate.now();
+		
+		try{
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			con = DriverManager.getConnection(chuoikn);
+			Statement st = con.createStatement();
+		int k = st.executeUpdate("insert into tb_doanhthu values ("+thanhtoan+",'"+i+"')");	 
+		if(k>0) JOptionPane.showMessageDialog(null, "Đã thêm doanh thu");
+		}catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Lỗi khi thêm doanh thu!" + ex.toString());
+		}
+	}
 	public DefaultTableModel loadDt(String time)
 	{
 	try {
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		Connection con = DriverManager.getConnection(chuoikn);
 		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery("select thoi_gian, SUM(tong_tien) as doanhthu from tb_bienlai where thoi_gian='"+time+"' group by thoi_gian");
+		ResultSet rs = st.executeQuery("select thoi_gian, SUM(tong_tien) as doanhthu from tb_doanhthu where thoi_gian='"+time+"' group by thoi_gian");
 			String[] tieudecot = {"Thời gian","Doanh thu"};
 			ArrayList<String[]> dulieubang = new ArrayList<String[]>();
 			while(rs.next())
@@ -900,7 +916,7 @@ ResultSet rs = st.executeQuery("select DISTINCT tb_khachhang.ma_kh,ten_kh,cmnd_k
 		ArrayList<String[]> dulieubang = new ArrayList<String[]>();
 		if(chonHt=="1")
 		{
-			ResultSet rs = st.executeQuery("select thoi_gian, SUM(tong_tien) as doanhthu from tb_bienlai group by thoi_gian");
+			ResultSet rs = st.executeQuery("select thoi_gian, SUM(tong_tien) as doanhthu from tb_doanhthu group by thoi_gian");
 			while(rs.next())
 			{
 				String[] dong = new String[2];
@@ -918,7 +934,7 @@ ResultSet rs = st.executeQuery("select DISTINCT tb_khachhang.ma_kh,ten_kh,cmnd_k
 		}
 		else if(chonHt == "2")
 		{
-			ResultSet rs = st.executeQuery("select year(thoi_gian) as nam, month(thoi_gian) as thang, sum(tong_tien) as doanhthu from tb_bienlai group by year(thoi_gian),month(thoi_gian)");
+			ResultSet rs = st.executeQuery("select year(thoi_gian) as nam, month(thoi_gian) as thang, sum(tong_tien) as doanhthu from tb_doanhthu group by year(thoi_gian),month(thoi_gian)");
 			while(rs.next())
 			{
 				String[] dong = new String[3];
@@ -937,7 +953,7 @@ ResultSet rs = st.executeQuery("select DISTINCT tb_khachhang.ma_kh,ten_kh,cmnd_k
 		}
 		else
 		{
-			ResultSet rs = st.executeQuery("select year(thoi_gian)as nam, sum(tong_tien) as doanhthu from tb_bienlai group by year(thoi_gian)");
+			ResultSet rs = st.executeQuery("select year(thoi_gian)as nam, sum(tong_tien) as doanhthu from tb_doanhthu group by year(thoi_gian)");
 			while(rs.next())
 			{
 				String[] dong = new String[2];
