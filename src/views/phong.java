@@ -52,14 +52,14 @@ public class phong extends javax.swing.JFrame {
 		});
 		
 		contentPane = new JPanel();
-                contentPane.setBackground(SystemColor.decode("#76EEC6"));
+        contentPane.setBackground(SystemColor.decode("#76EEC6"));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Thông tin phòng:",TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 51)));
 		panel_1.setBounds(10, 52, 570, 430);
-                panel_1.setBackground(SystemColor.decode("#76EEC6"));
+        panel_1.setBackground(SystemColor.decode("#76EEC6"));
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
@@ -147,9 +147,9 @@ public class phong extends javax.swing.JFrame {
 		cmbLp.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				if (cmbLp.getSelectedItem().toString().equals("phòng Thường"))
-					chonloaiphong = "Thường";
+					chonloaiphong = "1";
 				else if (cmbLp.getSelectedItem().toString().equals("phòng Vip"))
-					chonloaiphong = "Vip";
+					chonloaiphong = "2";
 			}
 		});
 		cmbLp.setModel(new DefaultComboBoxModel(new String[] {"--selected--","phòng Thường", "phòng Vip" }));
@@ -162,7 +162,6 @@ public class phong extends javax.swing.JFrame {
 
 		txtId = new JTextField();
 		txtId.setBounds(86, 62, 140, 30);
-		txtId.setEditable(false);
 		panel_1.add(txtId);
 		txtId.setColumns(10);
 

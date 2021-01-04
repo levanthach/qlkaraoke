@@ -125,7 +125,7 @@ return demtien2;
 }
 public String demTaikhoan(String taikhoan,String matkhau)
 {
-	String where="where username='"+taikhoan+"' and password='"+matkhau+"'";
+	String where="where taikhoan=N'"+taikhoan+"' and matkhau=N'"+matkhau+"'";
 	return where;
 }
 public String demKhach(String giatri)
@@ -162,7 +162,7 @@ return select;
 
 public String itemLogin(String giatri)
 {
-String select="select * from tb_nhanvien where username='"+giatri+"'";
+String select="select * from tb_login where taikhoan='"+giatri+"'";
 return select;
 }
 public String itemTgden(String giatri)
@@ -238,31 +238,32 @@ public String cellTb(String col,String select)
 	{
 	DefaultTableModel tbModel=new DefaultTableModel();
 	String where="";
-	if(j==0) where="where tinh_trang=N'0'";
-	else if(j==1) where="where tinh_trang=N'1'";
-	else if(j==2) where="where loai_phong=N'Thường'";
-	else if(j==3) where="where loai_phong=N'Vip'";
+	if(j==0) where="where tinhtrang=N'0'";
+	else if(j==1) where="where tinhtrang=N'1'";
+	else if(j==2) where="where loai_phong=N'1'";
+	else if(j==3) where="where loai_phong=N'2'";
 	else where="";
 	try {
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		Connection con = DriverManager.getConnection(ketnoi);
 		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery("select ma_phong,ten_phong,loai_phong,gia_phong,case when tinh_trang=1 then N'Phòng đã đặt' else N'Phòng trống' end as tinh_trang from tb_phong "+where+" order by ma_phong asc");//load du lieu len JTable
+		ResultSet rs = st.executeQuery("select ma_phong,ten_phong, case loai_phong when 1 then N'Phòng thường' else N'Phòng Vip' end as loai_phong,gia_phong, chuthich, case when tinhtrang=1 then N'Phòng đã đặt' else N'Phòng trống' end as tinhtrang from tb_phong "+where+" order by ma_phong asc");//load du lieu len JTable
 
-			String[] tieudecot = {"Mã Phòng","Tên Phòng","Loại Phòng","Giá Phòng","Tình trạng"};
+			String[] tieudecot = {"Mã Phòng","Tên Phòng","Loại Phòng","Giá Phòng","Tình trạng","Chú Thích"};
 			ArrayList<String[]> dulieubang = new ArrayList<String[]>();
 			while(rs.next())
 			{
-				String[] dong = new String[5];
+				String[] dong = new String[6];
 				dong[0] = rs.getString("ma_phong");
 				dong[1] = rs.getString("ten_phong");
 				dong[2] = rs.getString("loai_phong");
 				dong[3]=rs.getString("gia_phong");
-				dong[4]=rs.getString("tinh_trang");
+				dong[4]=rs.getString("tinhtrang");
+				dong[5]=rs.getString("chuthich");
 				dulieubang.add(dong);
 			}
 			//
-			String[][] data = new String[dulieubang.size()][5];
+			String[][] data = new String[dulieubang.size()][6];
 			for(int i=0; i<dulieubang.size(); i++)
 			{
 				data[i]=dulieubang.get(i);
