@@ -214,7 +214,7 @@ public class dichvu extends javax.swing.JFrame {
 		lblTongtien.setBounds(387, 275, 144, 23);
 		panel_3.add(lblTongtien);
 		
-		JLabel lblkaraoke = new JLabel("KARAOKE NGUYỄN CHIẾN JF");
+		JLabel lblkaraoke = new JLabel("KARAOKE NHẬP MÔN CNPM");
                 lblkaraoke.setFont(new Font("Times New Roman", Font.BOLD, 16));
                 lblkaraoke.setForeground(new Color(0, 0, 238));
 		lblkaraoke.setBounds(160, 25, 300, 34);

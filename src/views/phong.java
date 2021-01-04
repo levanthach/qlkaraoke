@@ -152,7 +152,7 @@ public class phong extends javax.swing.JFrame {
 					chonloaiphong = "2";
 			}
 		});
-		cmbLp.setModel(new DefaultComboBoxModel(new String[] {"--selected--","phòng Thường", "phòng Vip" }));
+		cmbLp.setModel(new DefaultComboBoxModel(new String[] {"--selected--","Phòng Thường", "Phòng Vip" }));
 		cmbLp.setBounds(361, 26, 161, 30);
 		panel_1.add(cmbLp);
 
