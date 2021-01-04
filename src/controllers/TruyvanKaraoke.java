@@ -82,7 +82,7 @@ public class TruyvanKaraoke {
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 				con = DriverManager.getConnection(chuoikn);
 				Statement st = con.createStatement();
-				int i = st.executeUpdate("insert into tb_phong(ten_phong, loai_phong, gia_phong, tinh_trang)  values(N'" +ten_phong+"',N'" +loai_phong+"',N'" +gia_phong+"',0)");
+				int i = st.executeUpdate("insert into tb_phong values(N'"+Id("tb_phong", "ma_phong")+"',N'"+ten_phong+"',N'"+loai_phong+"',N'"+gia_phong+"', N'',N'0' )");
 			//	if(i>0&&tinhtrang==1) JOptionPane.showMessageDialog(null, "Phòng đã được đặt");
 				if(i>0) JOptionPane.showMessageDialog(null, "Đã thêm phòng");
 			}catch(Exception ex)
@@ -172,13 +172,13 @@ public class TruyvanKaraoke {
 				JOptionPane.showMessageDialog(null, "Lỗi khi thêm biên lai!" + ex.toString());
 			}
 	}
-  public void ThemNhanVien(String ten_nv,String username,String password,String gioi_tinh,String phone,String email)
+	public void ThemNhanVien(String ten_nv,String chucvu_nv,String luong_nv,String namsinh_nv,String gioitinh_nv,String chuthich_nv)
 	{
 			try{
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 				con = DriverManager.getConnection(chuoikn);
 				Statement st = con.createStatement();
-				int i = st.executeUpdate("insert into tb_nhanvien(username, password, name, gioi_tinh, phone, email)  values(N'"+username+"',N'"+password+"',N'"+ten_nv+"',N'"+gioi_tinh+"',N'"+phone+"',N'"+email+"')");
+				int i = st.executeUpdate("insert into tb_nhanvien  values(N'"+Id("tb_nhanvien","ma_nv")+"',N'"+ten_nv+"',N'"+chucvu_nv+"',N'"+luong_nv+"',N'"+namsinh_nv+"',N'"+gioitinh_nv+"',N'"+chuthich_nv+"')");
 				if(i>0) JOptionPane.showMessageDialog(null, "Nhân viên đã được thêm");
 			}catch(Exception ex)
 			{
@@ -524,21 +524,22 @@ ResultSet rs = st.executeQuery("select DISTINCT tb_khachhang.ma_kh,ten_kh,cmnd_k
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		Connection con = DriverManager.getConnection(chuoikn);
 		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery("select ma_nv,username, name, gioi_tinh,phone,email from tb_nhanvien order by ma_nv asc");
-			String[] tieudecot = {"Mã NV","Tên TK", "Tên NV", "Giới tính", "SĐT","Email"};
+		ResultSet rs = st.executeQuery("select ma_nv,ten_nv,chucvu_nv,luong_nv,namsinh_nv,case when gioitinh_nv=1 then N'Nam' else N'Nữ' end as gioitinh_nv,chuthich_nv from tb_nhanvien order by ma_nv asc");
+			String[] tieudecot = {"Mã NV","Tên NV","Chức vụ","Lương","Năm sinh","Giới tính","Chú thích"};
 			ArrayList<String[]> dulieubang = new ArrayList<String[]>();
 			while(rs.next())
 			{
-				String[] dong = new String[6];
+				String[] dong = new String[7];
 				dong[0] = rs.getString("ma_nv");
-				dong[1] = rs.getString("username");
-				dong[2] = rs.getString("name");
-				dong[3] = rs.getString("gioi_tinh");
-				dong[4] = rs.getString("phone");
-				dong[5] = rs.getString("email");
+				dong[1] = rs.getString("ten_nv");
+				dong[2] = rs.getString("chucvu_nv");
+				dong[3] = rs.getString("luong_nv");
+				dong[4] = rs.getString("namsinh_nv");
+				dong[5] = rs.getString("gioitinh_nv");
+				dong[6] = rs.getString("chuthich_nv");
 				dulieubang.add(dong);
 			}
-			String[][] data = new String[dulieubang.size()][6];
+			String[][] data = new String[dulieubang.size()][7];
 			for(int i=0; i<dulieubang.size(); i++)
 			{
 				data[i]=dulieubang.get(i);
@@ -865,7 +866,7 @@ ResultSet rs = st.executeQuery("select DISTINCT tb_khachhang.ma_kh,ten_kh,cmnd_k
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		Connection con = DriverManager.getConnection(chuoikn);
 		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery("select thoi_gian, SUM(tong_tien) as doanhthu from tb_hoadon where thoi_gian='"+time+"' group by thoi_gian");
+		ResultSet rs = st.executeQuery("select thoi_gian, SUM(tong_tien) as doanhthu from tb_bienlai where thoi_gian='"+time+"' group by thoi_gian");
 			String[] tieudecot = {"Thời gian","Doanh thu"};
 			ArrayList<String[]> dulieubang = new ArrayList<String[]>();
 			while(rs.next())
@@ -899,7 +900,7 @@ ResultSet rs = st.executeQuery("select DISTINCT tb_khachhang.ma_kh,ten_kh,cmnd_k
 		ArrayList<String[]> dulieubang = new ArrayList<String[]>();
 		if(chonHt=="1")
 		{
-			ResultSet rs = st.executeQuery("select thoi_gian, SUM(tong_tien) as doanhthu from tb_hoadon group by thoi_gian");
+			ResultSet rs = st.executeQuery("select thoi_gian, SUM(tong_tien) as doanhthu from tb_bienlai group by thoi_gian");
 			while(rs.next())
 			{
 				String[] dong = new String[2];
@@ -917,7 +918,7 @@ ResultSet rs = st.executeQuery("select DISTINCT tb_khachhang.ma_kh,ten_kh,cmnd_k
 		}
 		else if(chonHt == "2")
 		{
-			ResultSet rs = st.executeQuery("select year(thoi_gian) as nam, month(thoi_gian) as thang, sum(tong_tien) as doanhthu from tb_hoadon group by year(thoi_gian),month(thoi_gian)");
+			ResultSet rs = st.executeQuery("select year(thoi_gian) as nam, month(thoi_gian) as thang, sum(tong_tien) as doanhthu from tb_bienlai group by year(thoi_gian),month(thoi_gian)");
 			while(rs.next())
 			{
 				String[] dong = new String[3];
@@ -936,7 +937,7 @@ ResultSet rs = st.executeQuery("select DISTINCT tb_khachhang.ma_kh,ten_kh,cmnd_k
 		}
 		else
 		{
-			ResultSet rs = st.executeQuery("select year(thoi_gian)as nam, sum(tong_tien) as doanhthu from tb_hoadon group by year(thoi_gian)");
+			ResultSet rs = st.executeQuery("select year(thoi_gian)as nam, sum(tong_tien) as doanhthu from tb_bienlai group by year(thoi_gian)");
 			while(rs.next())
 			{
 				String[] dong = new String[2];
