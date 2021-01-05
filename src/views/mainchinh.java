@@ -421,7 +421,7 @@ public class mainchinh extends javax.swing.JFrame {
 		JButton btnNewButton_7 = new JButton();
                 btnNewButton_7.setFont(new Font("Tahoma", Font.BOLD, 13));
                 btnNewButton_7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/print.png"))); 
-                btnNewButton_7.setText("Thông Tin");
+                btnNewButton_7.setText("Doanh thu");
                 btnNewButton_7.setBackground(new Color(255 ,246 ,143));
 		btnNewButton_7.setBounds(700, 13, 135, 42);
                 contentPane.add(btnNewButton_7);
