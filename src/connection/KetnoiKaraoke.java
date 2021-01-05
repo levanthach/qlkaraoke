@@ -162,7 +162,7 @@ return select;
 
 public String itemLogin(String giatri)
 {
-String select="select * from tb_login where taikhoan='"+giatri+"'";
+String select="select * from tb_login where ma_tk='"+giatri+"'";
 return select;
 }
 public String itemTgden(String giatri)
