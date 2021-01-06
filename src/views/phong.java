@@ -10,18 +10,18 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.border.*;
+
 import connection.KetnoiKaraoke;
 import controllers.TruyvanKaraoke;
+
 import java.util.*;
-
-
+/**
+ *
+ * @author nguyenchienjf
+ */
 public class phong extends javax.swing.JFrame {
     
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	TruyvanKaraoke adapterMd = new TruyvanKaraoke();
+    TruyvanKaraoke adapterMd = new TruyvanKaraoke();
 	KetnoiKaraoke adapterCtr = new KetnoiKaraoke();
 	private JPanel contentPane;
 	private JTextField txtTen;
@@ -31,8 +31,8 @@ public class phong extends javax.swing.JFrame {
 	private JComboBox cmbLp;
 	private JComboBox comboBox;
 	private String chonloaiphong;
-	private String id="";
-	String ttPhong = "";
+	private String id;
+	String namephong = "";
     /**
      * Creates new form viewPhong
      */
@@ -47,19 +47,19 @@ public class phong extends javax.swing.JFrame {
 			@Override
 			public void windowOpened(WindowEvent arg0) {
 				adapterCtr = new KetnoiKaraoke();
-				tblPhong.setModel(adapterCtr.timKiemPhong(5));
+				tblPhong.setModel(adapterCtr.timKiemPhong(6));
 			}
 		});
 		
 		contentPane = new JPanel();
-        contentPane.setBackground(SystemColor.decode("#76EEC6"));
+                contentPane.setBackground(SystemColor.decode("#76EEC6"));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Thông tin phòng:",TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 51)));
 		panel_1.setBounds(10, 52, 570, 430);
-        panel_1.setBackground(SystemColor.decode("#76EEC6"));
+                panel_1.setBackground(SystemColor.decode("#76EEC6"));
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
@@ -67,19 +67,25 @@ public class phong extends javax.swing.JFrame {
 		btnXoa.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
+				String quyen = adapterCtr.cellTb("tinhtrang", adapterCtr.itemLogin(adapterCtr.Id("id_1", "id")));
+				if (!quyen.equals("1")) {
+					JOptionPane.showMessageDialog(null, "Bạn không được sử dụng chức năng này!");
+					return;
+				}
 				//trương hợp phòng đang có người dùng mà chúng ta xóa thì không được
-				if(ttPhong.equals("Phòng đã đặt")){
+				if(namephong.equals("Phòng đã đặt")){
 					JOptionPane.showMessageDialog(null, "xin lỗi phòng này đang dùng");
 					return;
 				}
-				if (id.equals(""))
-					JOptionPane.showMessageDialog(null, "Chưa chọn phòng!");
-				else {
-					if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa!", "Kiểm tra lại",
-							JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-							adapterMd.XoaId("tb_phong", "ma_phong", id);
-							adapterCtr = new KetnoiKaraoke();
-							tblPhong.setModel(adapterCtr.timKiemPhong(6));
+				if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa!", "Kiểm tra lại",
+						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					if (id.equals(""))
+						JOptionPane.showMessageDialog(null, "Chưa chọn phòng!");
+					else {
+						adapterMd.XoaId("tb_phong", "ma_phong", id);
+						adapterCtr = new KetnoiKaraoke();
+						tblPhong.setModel(adapterCtr.timKiemPhong(6));
 					}
 				}
 			}
@@ -104,9 +110,11 @@ public class phong extends javax.swing.JFrame {
 		tblPhong.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				ttPhong=tblPhong.getValueAt(tblPhong.getSelectedRow(), 4).toString();
+				namephong=tblPhong.getValueAt(tblPhong.getSelectedRow(), 4).toString();
 				id = tblPhong.getModel().getValueAt(tblPhong.getSelectedRow(), 0).toString();
+				txtTen.setText(tblPhong.getModel().getValueAt(tblPhong.getSelectedRow(), 1).toString());
 				txtId.setText(id);
+				txtGia.setText(tblPhong.getModel().getValueAt(tblPhong.getSelectedRow(), 3).toString());
 			}
 		});
 		scrollPane.setViewportView(tblPhong);
@@ -115,7 +123,10 @@ public class phong extends javax.swing.JFrame {
 		btnThem.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (txtTen.getText().toString().equals("") || chonloaiphong.equals("--selected--")
+				String quyen = adapterCtr.cellTb("tinhtrang", adapterCtr.itemLogin(adapterCtr.Id("id_1", "id")));
+				if (!quyen.equals("1"))
+					JOptionPane.showMessageDialog(null, "Bạn không được sử dụng chức năng này!");
+				else if (txtTen.getText().toString().equals("") || chonloaiphong.equals("--selected--")
 						|| txtGia.getText().toString().equals("")) {
 					JOptionPane.showMessageDialog(null, "Kiểm tra lại!");
 				} else {
@@ -152,7 +163,7 @@ public class phong extends javax.swing.JFrame {
 					chonloaiphong = "2";
 			}
 		});
-		cmbLp.setModel(new DefaultComboBoxModel(new String[] {"--selected--","Phòng Thường", "Phòng Vip" }));
+		cmbLp.setModel(new DefaultComboBoxModel(new String[] {"--selected--","phòng Thường", "phòng Vip" }));
 		cmbLp.setBounds(361, 26, 161, 30);
 		panel_1.add(cmbLp);
 
@@ -181,7 +192,7 @@ public class phong extends javax.swing.JFrame {
 			public void itemStateChanged(ItemEvent e) {
 				// load tất cả
 				if (comboBox.getSelectedIndex() == 0)
-					tblPhong.setModel(adapterCtr.timKiemPhong(5));
+					tblPhong.setModel(adapterCtr.timKiemPhong(6));
 				// load phong tình trạng =0
 				else if (comboBox.getSelectedIndex() == 1)
 					tblPhong.setModel(adapterCtr.timKiemPhong(0));
