@@ -174,7 +174,8 @@ public class traphong extends javax.swing.JFrame {
 		
 		JButton btnNewButton_1 = new JButton();
 		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		// Watch detail service
+		public void actionPerformed(ActionEvent arg0) {
             adapterCtr.luuid(idP,"*");
 		    hoadon bl=new hoadon();
 			bl.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -201,42 +202,43 @@ public class traphong extends javax.swing.JFrame {
 		
 		JButton btnTraphong = new JButton();
 		btnTraphong.addActionListener(new ActionListener() {
+			// Handle code room payment
 		public void actionPerformed(ActionEvent arg0) {
-	if(adapterCtr.demDong("tb_phong",adapterCtr.demPhongDat).equals("0")) JOptionPane.showMessageDialog(null,"Không có phòng!");
-	else if(JOptionPane.showConfirmDialog(null, "Bạn có muốn trả phòng "+tblphong.getModel().getValueAt(tblphong.getSelectedRow(),1).toString()+" ","Kiểm tra lại",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION)
-	{	
-		txttenphong.setText("");
-		txtloaiphong.setText("");
-		txtgiaphong.setText("");
-		txtngayden.setText("");
-		txtngayht.setText("");
-		txtngaydv.setText("");
-		txtsldv.setText("");
-		txttiendv.setText("");
-		txttongtien.setText("");
-                txtnhanvien.setText("");
-		lblngaytt.setText("");
-		txttonggio.setText("");
-		lbltientt.setText("");
-		txtgioden.setText("");
-		txtgioht.setText("");
-	    	//update phòng được chọn tinhtrang từ 1 thành 0
-			adapterMd.updatePhong("0",idP);
-			// xóa hóa đơn dv theo phòng được chọn
-			adapterMd.XoaHddvTp(idP);
-			// xóa biên lai theo phòng được chọn
-			adapterMd.XoaBlTp(idP);
-			// xóa khách hàng theo phòng được chọn
-			adapterMd.XoaKhTp(idP);
-			// xóa khách nhạn phòng theo phòng được chọn
-			adapterMd.XoaKnpTp(idP);
-			// xóa hợp đồng thuê phòng theo phòng
-			adapterMd.XoaHdTp(idP);
-			// lưu doanh thu
-			adapterMd.luuDoanhThu(thanhtoan);
-			JOptionPane.showMessageDialog(null,"Đã in biên lai, tất cả dữ liệu đã xóa!");
-			tblphong.setModel(adapterMd.loadPhong("1"));
-	}
+			if(adapterCtr.demDong("tb_phong",adapterCtr.demPhongDat).equals("0")) JOptionPane.showMessageDialog(null,"Không có phòng!");
+			else if(JOptionPane.showConfirmDialog(null, "Bạn có muốn trả phòng "+tblphong.getModel().getValueAt(tblphong.getSelectedRow(),1).toString()+" ","Kiểm tra lại",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION)
+			{	
+				txttenphong.setText("");
+				txtloaiphong.setText("");
+				txtgiaphong.setText("");
+				txtngayden.setText("");
+				txtngayht.setText("");
+				txtngaydv.setText("");
+				txtsldv.setText("");
+				txttiendv.setText("");
+				txttongtien.setText("");
+						txtnhanvien.setText("");
+				lblngaytt.setText("");
+				txttonggio.setText("");
+				lbltientt.setText("");
+				txtgioden.setText("");
+				txtgioht.setText("");
+					//update phòng được chọn tinhtrang từ 1 thành 0
+					adapterMd.updatePhong("0",idP);
+					// xóa hóa đơn dv theo phòng được chọn
+					adapterMd.XoaHddvTp(idP);
+					// xóa biên lai theo phòng được chọn
+					adapterMd.XoaBlTp(idP);
+					// xóa khách hàng theo phòng được chọn
+					adapterMd.XoaKhTp(idP);
+					// xóa khách nhạn phòng theo phòng được chọn
+					adapterMd.XoaKnpTp(idP);
+					// xóa hợp đồng thuê phòng theo phòng
+					adapterMd.XoaHdTp(idP);
+					// lưu doanh thu
+					adapterMd.luuDoanhThu(thanhtoan);
+					JOptionPane.showMessageDialog(null,"Đã in biên lai, tất cả dữ liệu đã xóa!");
+					tblphong.setModel(adapterMd.loadPhong("1"));
+			}
 			}
 		});
 		btnTraphong.setBounds(307, 379, 150, 43);
@@ -303,6 +305,7 @@ public class traphong extends javax.swing.JFrame {
 		
 		JButton btnNewButton = new JButton();
 		btnNewButton.addActionListener(new ActionListener() {
+			// Watch Detail room karaoke
 			public void actionPerformed(ActionEvent arg0) {
 				
 				txtngayht.setText(adapterCtr.ngayHt);

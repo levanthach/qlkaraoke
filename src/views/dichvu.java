@@ -104,7 +104,7 @@ public class dichvu extends javax.swing.JFrame {
 			}
 		});
 		scrollPane_2.setViewportView(tblDvDat);
-		
+		// Add Service
 		JButton btnThemDv = new JButton("Thêm Dv");
 		btnThemDv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -133,6 +133,7 @@ public class dichvu extends javax.swing.JFrame {
                 btnThemDv.setBackground(new Color(255 ,246 ,143));
 		contentPane.add(btnThemDv);
 		
+		// Delete service
 		JButton btnXoaDv = new JButton("Xóa Dv");
 		btnXoaDv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -249,6 +250,7 @@ public class dichvu extends javax.swing.JFrame {
 		panel_3.add(lblNv);
 		
 		JButton btnXemHd = new JButton();
+		// Watch invoice
 		btnXemHd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			  adapterMd=new TruyvanKaraoke();
@@ -294,17 +296,18 @@ public class dichvu extends javax.swing.JFrame {
                 btnNewButton.setText("Hủy Dịch vụ");
                 btnNewButton.setBackground(new Color(255 ,246 ,143));
 		contentPane.add(btnNewButton);
-                
+        
 		JButton btnXuat = new JButton("");
+		// Direct payment
 		btnXuat.addActionListener(new ActionListener() 
-                {
+		{
 			public void actionPerformed(ActionEvent e) 
-                        {
-                                lblSldv.setText("");
-                                lblTongtien.setText("");
-                                adapterMd.XoaHddv();
-                                tblDvDat.setModel(adapterMd.loadHdDv());
-                                JOptionPane.showMessageDialog(null, "Đã in!");
+			{
+				lblSldv.setText("");
+				lblTongtien.setText("");
+				adapterMd.XoaHddv();
+				tblDvDat.setModel(adapterMd.loadHdDv());
+				JOptionPane.showMessageDialog(null, "Đã in!");
 			}
 		});
 		btnXuat.setBounds(416, 600, 150, 43);
@@ -316,7 +319,8 @@ public class dichvu extends javax.swing.JFrame {
 		
 		JButton btnthanhtoansau = new JButton("Chọn phòng đặt dịch vụ");
 		btnthanhtoansau.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		// Select room - services
+		public void actionPerformed(ActionEvent arg0) {
 			adapterMd=new TruyvanKaraoke();
 			tblDvDat.setModel(adapterMd.loadHdDv());
 			dichvuphong chonphong=new dichvuphong();

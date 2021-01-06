@@ -103,7 +103,8 @@ public class login extends javax.swing.JFrame {
 		pfMk.setBounds(94, 90, 190, 30);
 		Lanel.add(pfMk);
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+        // Handle code login
+		public void actionPerformed(ActionEvent e) {
 		if(txttk.getText().equals("")||String.valueOf(pfMk.getPassword()).equals("")) 
                         {
                             if(txttk.getText().equals(""))

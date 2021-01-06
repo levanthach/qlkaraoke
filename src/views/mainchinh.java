@@ -51,6 +51,7 @@ public class mainchinh extends javax.swing.JFrame {
 		setResizable(false);
                 setLocationRelativeTo(null);
 		addWindowListener(new WindowAdapter() {
+			// Show list customer, room, staff, room booked
 			@Override
 			public void windowOpened(WindowEvent arg0) {
 				adapterMd=new TruyvanKaraoke();
@@ -277,6 +278,7 @@ public class mainchinh extends javax.swing.JFrame {
 	    button_1.setBounds(520, 360, 150, 53);
 	    panel_9.add(button_1);
 	    button_1.addActionListener(new ActionListener() {
+		// Handle book room in main
 	    public void actionPerformed(ActionEvent e) {
  	
 	    if (JOptionPane.showConfirmDialog(null, "Bạn có muốn đặt phòng này!","Kiểm tra lại",

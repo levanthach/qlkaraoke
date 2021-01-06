@@ -56,6 +56,7 @@ public class khachhang extends javax.swing.JFrame {
         setTitle("Khách Hàng");
 		setResizable(false);
 		addWindowListener(new WindowAdapter() {
+			// Handle List
 			@Override
 			public void windowOpened(WindowEvent arg0) {
 				adapterMd=new TruyvanKaraoke();
@@ -112,7 +113,8 @@ public class khachhang extends javax.swing.JFrame {
 
 		JButton btnSua = new JButton();
 		btnSua.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		// Update customer
+		public void actionPerformed(ActionEvent e) {
 			adapterMd.updateAllKh(idKh,txtTen.getText(),txtCmnd.getText(),chonGioitinh,txtLienlac.getText());
 			adapterMd=new TruyvanKaraoke();
 			tblKh.setModel(adapterMd.loadAllKh());
@@ -127,6 +129,7 @@ public class khachhang extends javax.swing.JFrame {
 		
 		JButton btnXoa = new JButton();
 		btnXoa.addActionListener(new ActionListener() {
+			// Delete customer
 			public void actionPerformed(ActionEvent e) {
 if(JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa!","Kiểm tra lại",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) 
 		        {
@@ -204,6 +207,7 @@ if(JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa!","Kiểm t
 		
 		cmbPhong = new JComboBox();
 		cmbPhong.addItemListener(new ItemListener() {
+			// Filter customer by select room
 			public void itemStateChanged(ItemEvent arg0) {
 		adapterMd=new TruyvanKaraoke();
 		if(cmbPhong.getSelectedIndex()==0) tblKh.setModel(adapterMd.loadAllKh());
