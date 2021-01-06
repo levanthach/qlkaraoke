@@ -171,14 +171,14 @@ public class phong extends javax.swing.JFrame {
 		lblNewLabel_2.setBounds(252, 34, 99, 14);
 		panel_1.add(lblNewLabel_2);
 
-		txtId = new JTextField();
-		txtId.setBounds(86, 62, 140, 30);
-		panel_1.add(txtId);
-		txtId.setColumns(10);
+		// txtId = new JTextField();
+		// txtId.setBounds(86, 62, 140, 30);
+		// panel_1.add(txtId);
+		// txtId.setColumns(10);
 
-		JLabel lblNewLabel_4 = new JLabel("Id :");
-		lblNewLabel_4.setBounds(10, 67, 67, 14);
-		panel_1.add(lblNewLabel_4);
+		// JLabel lblNewLabel_4 = new JLabel("Id :");
+		// lblNewLabel_4.setBounds(10, 67, 67, 14);
+		// panel_1.add(lblNewLabel_4);
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Tìm kiếm phòng:",TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 51)));
