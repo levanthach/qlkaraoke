@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package QLYKARAOKE;
+package controllers;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
+
+import org.w3c.dom.ls.LSOutput;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Vector;
@@ -33,7 +36,7 @@ public class TruyvanKaraoke {
 	DateFormat ngay = new SimpleDateFormat("dd-MM-yyyy");
 	DateFormat gio= new SimpleDateFormat("HH:mm");
 	Calendar cal = Calendar.getInstance();
-	String Id(String tb,String ma)
+	public String Id(String tb,String ma)
 	{
 	    int id1=0,id2=0;
 		String id = null;
@@ -61,7 +64,7 @@ public class TruyvanKaraoke {
 			}
 	}
 
-	void ThemKhachHang(String ten_kh,String cmnd_kh,String gioitinh_kh,String sdt_kh,String tt)
+	public void ThemKhachHang(String ten_kh,String cmnd_kh,String gioitinh_kh,String sdt_kh,String tt)
 	{		
 	try{
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -74,13 +77,13 @@ public class TruyvanKaraoke {
 		JOptionPane.showMessageDialog(null, "Lỗi khi thêm khách hàng!" + ex.toString());
 	}
 	}
-	void ThemPhong(String ten_phong,String loai_phong,String gia_phong,String chuthich)
+	public void ThemPhong(String ten_phong,String loai_phong,String gia_phong)
 	{
 			try{
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 				con = DriverManager.getConnection(chuoikn);
 				Statement st = con.createStatement();
-				int i = st.executeUpdate("insert into tb_phong  values(N'"+Id("tb_phong","ma_phong")+"',N'" +ten_phong+"',N'" +loai_phong+"',N'" +gia_phong+"',N'" +chuthich+"',N'0')");
+				int i = st.executeUpdate("insert into tb_phong values(N'"+Id("tb_phong", "ma_phong")+"',N'"+ten_phong+"',N'"+loai_phong+"',N'"+gia_phong+"', N'',N'0' )");
 			//	if(i>0&&tinhtrang==1) JOptionPane.showMessageDialog(null, "Phòng đã được đặt");
 				if(i>0) JOptionPane.showMessageDialog(null, "Đã thêm phòng");
 			}catch(Exception ex)
@@ -89,7 +92,7 @@ public class TruyvanKaraoke {
 			}
 	}
 	
-	void ThemDichVu(String ten_dv,String gia_dv)
+	public void ThemDichVu(String ten_dv,String gia_dv)
 	{
 			try{
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -104,7 +107,7 @@ public class TruyvanKaraoke {
 			}
 	}
 	
-	void ThemHopDong(String ma_phong,String ma_nv)
+	public void ThemHopDong(String ma_phong,String ma_nv)
 	{
 		try{
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -119,7 +122,7 @@ public class TruyvanKaraoke {
 			}
 	}
 	
-void ThemKhachNhanPhong(String ma_phong,String tt)
+	public void ThemKhachNhanPhong(String ma_phong,String tt)
 	{
 			try{
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -132,8 +135,8 @@ void ThemKhachNhanPhong(String ma_phong,String tt)
 				JOptionPane.showMessageDialog(null, "Lỗi khi thêm khách hàng nhận phòng " + ex.toString());
 			}
 	}
-void Them(String ma_phong,String tt)
-{
+	public void Them(String ma_phong,String tt)
+	{
 		try{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			con = DriverManager.getConnection(chuoikn);
@@ -145,7 +148,7 @@ void Them(String ma_phong,String tt)
 			JOptionPane.showMessageDialog(null, "Lỗi khi thêm khách hàng nhận phòng " + ex.toString());
 		}
 }
-	void ThemHoaDonDv(String ma_dv,String giodv,String ngaydv)
+	public void ThemHoaDonDv(String ma_dv,String giodv,String ngaydv)
 	{
 			try{
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -157,7 +160,7 @@ void Them(String ma_phong,String tt)
 				JOptionPane.showMessageDialog(null, "Chưa chọn dịch vụ !");
 			}
 	}
-void ThemBienLai(String ma_hopdong,String ma_hddv)
+	public void ThemBienLai(String ma_hopdong,String ma_hddv)
 	{
 			try{
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -170,13 +173,13 @@ void ThemBienLai(String ma_hopdong,String ma_hddv)
 				JOptionPane.showMessageDialog(null, "Lỗi khi thêm biên lai!" + ex.toString());
 			}
 	}
-  void ThemNhanVien(String ten_nv,String chucvu_nv,String luong_nv,String namsinh_nv,String gioitinh_nv,String chuthich_nv)
+	public void ThemNhanVien(String ten_nv,String chucvu_nv,String luong_nv,String namsinh_nv,String gioitinh_nv,String chuthich_nv)
 	{
 			try{
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 				con = DriverManager.getConnection(chuoikn);
 				Statement st = con.createStatement();
-int i = st.executeUpdate("insert into tb_nhanvien  values(N'"+Id("tb_nhanvien","ma_nv")+"',N'"+ten_nv+"',N'"+chucvu_nv+"',N'"+luong_nv+"',N'"+namsinh_nv+"',N'"+gioitinh_nv+"',N'"+chuthich_nv+"')");
+				int i = st.executeUpdate("insert into tb_nhanvien  values(N'"+Id("tb_nhanvien","ma_nv")+"',N'"+ten_nv+"',N'"+chucvu_nv+"',N'"+luong_nv+"',N'"+namsinh_nv+"',N'"+gioitinh_nv+"',N'"+chuthich_nv+"')");
 				if(i>0) JOptionPane.showMessageDialog(null, "Nhân viên đã được thêm");
 			}catch(Exception ex)
 			{
@@ -184,7 +187,7 @@ int i = st.executeUpdate("insert into tb_nhanvien  values(N'"+Id("tb_nhanvien","
 				JOptionPane.showMessageDialog(null, "Lỗi khi thêm nhân viên!" + ex.toString());
 			}
 	}
-  void ThemUser(String taikhoan,String matkhau,String hoten)
+  public void ThemUser(String taikhoan,String matkhau,String hoten)
 	{
 			try{
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -197,7 +200,7 @@ int i = st.executeUpdate("insert into tb_nhanvien  values(N'"+Id("tb_nhanvien","
 				JOptionPane.showMessageDialog(null, "lỗi thêm người dùng!" + ex.toString());
 			}
 	}
-    void updateMaKhto0(String makh)
+    public void updateMaKhto0(String makh)
 	{
 	     try 
 	     {  
@@ -210,7 +213,7 @@ int i = st.executeUpdate("insert into tb_nhanvien  values(N'"+Id("tb_nhanvien","
 				JOptionPane.showMessageDialog(null, "Lỗi khi update khách hàng!" + e.toString());
 			} 
 	}
-	void updateMatkhau(String matkhaumoi,String ma_tk)
+	public void updateMatkhau(String matkhaumoi,String ma_tk)
 	{
 	     try 
 	     {  
@@ -224,7 +227,7 @@ int i = st.executeUpdate("insert into tb_nhanvien  values(N'"+Id("tb_nhanvien","
 			} 
 	}
 	
-	void updateKhachHang()
+	public void updateKhachHang()
 	{
 	     try 
 	     {  
@@ -237,7 +240,7 @@ int i = st.executeUpdate("insert into tb_nhanvien  values(N'"+Id("tb_nhanvien","
 				JOptionPane.showMessageDialog(null, "Lỗi khi update khách hàng!" + e.toString());
 			} 
 	}
-	void updateAllKh(String ma_kh,String ten,String cmnd,String gioitinh,String sdt)
+	public void updateAllKh(String ma_kh,String ten,String cmnd,String gioitinh,String sdt)
 	{
 	     try 
 	     {  
@@ -250,7 +253,7 @@ PreparedStatement st = connection.prepareStatement("update tb_khachhang set ten_
 				JOptionPane.showMessageDialog(null, "Lỗi khi update khách hàng!" + e.toString());
 			} 
 	}
-	void updatePhong(String tt,String chonPhong)
+	public void updatePhong(String tt,String chonPhong)
 	{
 	     try 
 	     {  
@@ -263,7 +266,7 @@ PreparedStatement st = connection.prepareStatement("update tb_khachhang set ten_
 				JOptionPane.showMessageDialog(null, "Lỗi khi update phòng!" + e.toString());
 			} 
 	}
-	void updateHDDV(String mot,String ko)
+	public void updateHDDV(String mot,String ko)
 	{
 	     try 
 	     {  
@@ -275,7 +278,7 @@ PreparedStatement st = connection.prepareStatement("update tb_khachhang set ten_
 				JOptionPane.showMessageDialog(null, "Lỗi khi update HDDV!" + e.toString());
 			} 
 	}
-	void updateHopDongInHDon(String ma_hd)
+	public void updateHopDongInHDon(String ma_hd)
 	{
 	     try 
 	     {  
@@ -365,7 +368,7 @@ PreparedStatement st = connection.prepareStatement("update tb_khachhang set ten_
 					JOptionPane.showMessageDialog(null, "Lỗi khi xóa. XoaBlTp!" + e.toString());
 		    } 
 	}
-	void XoaId(String table,String id1,String id2)
+	public void XoaId(String table,String id1,String id2)
 	{
 	  try 
 	     {  
@@ -841,7 +844,7 @@ ResultSet rs = st.executeQuery("select DISTINCT tb_khachhang.ma_kh,ten_kh,cmnd_k
 	public DefaultComboBoxModel loadNhanvienCmb()
 	{ 
 		cmbModel=new DefaultComboBoxModel();
-		cmbModel.addElement("chọn nv:");
+		cmbModel.addElement("Chọn Nv:");
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			Connection con = DriverManager.getConnection(chuoikn);
@@ -857,7 +860,122 @@ ResultSet rs = st.executeQuery("select DISTINCT tb_khachhang.ma_kh,ten_kh,cmnd_k
 			return null;
 		}
 	}
-
+	
+	public void luuDoanhThu(int thanhtoan)
+	{
+		LocalDate i = java.time.LocalDate.now();
+		
+		try{
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			con = DriverManager.getConnection(chuoikn);
+			Statement st = con.createStatement();
+		int k = st.executeUpdate("insert into tb_doanhthu values ("+thanhtoan+",'"+i+"')");	 
+		if(k>0) JOptionPane.showMessageDialog(null, "Đã thêm doanh thu");
+		}catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Lỗi khi thêm doanh thu!" + ex.toString());
+		}
+	}
+	public DefaultTableModel loadDt(String time)
+	{
+	try {
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		Connection con = DriverManager.getConnection(chuoikn);
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("select thoi_gian, SUM(tong_tien) as doanhthu from tb_doanhthu where thoi_gian='"+time+"' group by thoi_gian");
+			String[] tieudecot = {"Thời gian","Doanh thu"};
+			ArrayList<String[]> dulieubang = new ArrayList<String[]>();
+			while(rs.next())
+			{
+				String[] dong = new String[2];
+				dong[0] = rs.getString("thoi_gian");
+				dong[1] = rs.getString("doanhthu");
+				dulieubang.add(dong);
+			}
+			String[][] data = new String[dulieubang.size()][2];
+			for(int i=0; i<dulieubang.size(); i++)
+			{
+				data[i]=dulieubang.get(i);
+			}
+			tbModel.setDataVector(data,tieudecot);
+			return tbModel;
+	}
+	catch(Exception ex){
+		JOptionPane.showMessageDialog(null, "Lỗi khi load Nv"+ex.toString());
+		return null;
+	}
+	}
+	
+	
+	public DefaultTableModel loadDtFor(String chonHt)
+	{
+	try {
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		Connection con = DriverManager.getConnection(chuoikn);
+		Statement st = con.createStatement();
+		ArrayList<String[]> dulieubang = new ArrayList<String[]>();
+		if(chonHt=="1")
+		{
+			ResultSet rs = st.executeQuery("select thoi_gian, SUM(tong_tien) as doanhthu from tb_doanhthu group by thoi_gian");
+			while(rs.next())
+			{
+				String[] dong = new String[2];
+				dong[0] = rs.getString("thoi_gian");
+				dong[1] = rs.getString("doanhthu");
+				dulieubang.add(dong);
+			}
+			String[] tieudecot = {"Thời gian","Doanh thu"};
+			String[][] data = new String[dulieubang.size()][2];
+			for(int i=0; i<dulieubang.size(); i++)
+			{
+				data[i]=dulieubang.get(i);
+			}
+			tbModel.setDataVector(data,tieudecot);
+		}
+		else if(chonHt == "2")
+		{
+			ResultSet rs = st.executeQuery("select year(thoi_gian) as nam, month(thoi_gian) as thang, sum(tong_tien) as doanhthu from tb_doanhthu group by year(thoi_gian),month(thoi_gian)");
+			while(rs.next())
+			{
+				String[] dong = new String[3];
+				dong[0] = rs.getString("nam");
+				dong[1] = rs.getString("thang");
+				dong[2] = rs.getString("doanhthu");
+				dulieubang.add(dong);
+			}
+			String[] tieudecot = {"Năm", "Tháng", "Doanh thu"};
+			String[][] data = new String[dulieubang.size()][3];
+			for(int i=0; i<dulieubang.size(); i++)
+			{
+				data[i]=dulieubang.get(i);
+			}
+			tbModel.setDataVector(data,tieudecot);
+		}
+		else
+		{
+			ResultSet rs = st.executeQuery("select year(thoi_gian)as nam, sum(tong_tien) as doanhthu from tb_doanhthu group by year(thoi_gian)");
+			while(rs.next())
+			{
+				String[] dong = new String[2];
+				dong[0] = rs.getString("nam");
+				dong[1] = rs.getString("doanhthu");
+				dulieubang.add(dong);
+			}
+			String[] tieudecot = {"Năm","Doanh thu"};
+			String[][] data = new String[dulieubang.size()][2];
+			for(int i=0; i<dulieubang.size(); i++)
+			{
+				data[i]=dulieubang.get(i);
+			}
+			tbModel.setDataVector(data,tieudecot);
+		}
+			return tbModel;
+	}
+	catch(Exception ex){
+		JOptionPane.showMessageDialog(null, "Lỗi khi load Nv"+ex.toString());
+		return null;
+	}
+	}
    
 }
 

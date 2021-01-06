@@ -3,20 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package QLYKARAOKE;
+package views;
 
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.border.*;
+
+import connection.KetnoiKaraoke;
+import controllers.TruyvanKaraoke;
 /**
  *
  * @author nguyenchienjf
  */
 public class nhanvien extends javax.swing.JFrame {
-    
-        TruyvanKaraoke adapterMd=new TruyvanKaraoke();
-        KetnoiKaraoke adapterCtr=new KetnoiKaraoke();
+	
+	TruyvanKaraoke adapterMd=new TruyvanKaraoke();
+	KetnoiKaraoke adapterCtr=new KetnoiKaraoke();
 	private JPanel contentPane;
 	private JTextField txtTenNv;
 	private JTextField txtChucvu;
@@ -27,6 +30,7 @@ public class nhanvien extends javax.swing.JFrame {
 	private JComboBox comboBox;
 	String IdNv="";
 	String chonGioitinh=new String();
+
 
     /**
      * Creates new form viewNhanVien
@@ -64,12 +68,12 @@ public class nhanvien extends javax.swing.JFrame {
 		tblNv.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-			IdNv=tblNv.getModel().getValueAt(tblNv.getSelectedRow(),0).toString();
-			txtTenNv.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),1).toString());
-			txtChucvu.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),2).toString());
-			txtLuong.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),3).toString());
-			txtNamsinh.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),4).toString());
-			txtChuthich.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),6).toString());
+				IdNv=tblNv.getModel().getValueAt(tblNv.getSelectedRow(),0).toString();
+				txtTenNv.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),1).toString());
+				txtChucvu.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),2).toString());
+				txtLuong.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),3).toString());
+				txtNamsinh.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),4).toString());
+				txtChuthich.setText(tblNv.getModel().getValueAt(tblNv.getSelectedRow(),6).toString());
 			}
 		});
 		scrollPane.setViewportView(tblNv);
@@ -90,7 +94,7 @@ public class nhanvien extends javax.swing.JFrame {
 		panel_2.add(txtTenNv);
 		txtTenNv.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Chức vụ :");
+		JLabel lblNewLabel_1 = new JLabel("Chức Vụ :");
 		lblNewLabel_1.setBounds(18, 67, 65, 14);
 		panel_2.add(lblNewLabel_1);
 		
@@ -138,7 +142,7 @@ public class nhanvien extends javax.swing.JFrame {
 		panel_2.add(txtChuthich);
 		txtChuthich.setColumns(10);
 		
-		JLabel lblNewLabel_5 = new JLabel("Chú thích :");
+		JLabel lblNewLabel_5 = new JLabel("Chú Thích :");
 		lblNewLabel_5.setBounds(530, 67, 65, 14);
 		panel_2.add(lblNewLabel_5);
 		
@@ -151,19 +155,21 @@ public class nhanvien extends javax.swing.JFrame {
 		panel_2.add(btnXoa);
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String quyen=adapterCtr.cellTb("tinhtrang",adapterCtr.itemLogin(adapterCtr.Id("id_1","id")));
-				if(!quyen.equals("1")) {JOptionPane.showMessageDialog(null,"Bạn không được sử dụng chức năng này!");
-				return;
-				}
 				if(IdNv.equals(""))
 				{
-	      JOptionPane.showMessageDialog(null, "Chưa chọn nhân viên");
+					JOptionPane.showMessageDialog(null, "Chưa chọn nhân viên");
 				}
 				else 
 				{
-		   adapterMd.XoaId("tb_nhanvien","ma_nv",IdNv);
-		   tblNv.setModel(adapterMd.loadAllNv());
-		   
+					adapterMd.XoaId("tb_nhanvien","ma_nv",IdNv);
+					tblNv.setModel(adapterMd.loadAllNv());
+					txtTenNv.setText("");
+					txtChucvu.setText("");
+					txtChuthich.setText("");
+					txtLuong.setText("");
+					txtNamsinh.setText("");
+					IdNv="";
+					comboBox.setModel(new DefaultComboBoxModel(new String[] {"--Chọn--", "Nam", "Nữ"}));
 				}
 			}
 		});
@@ -177,25 +183,26 @@ public class nhanvien extends javax.swing.JFrame {
                 
                 btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String quyen=adapterCtr.cellTb("tinhtrang",adapterCtr.itemLogin(adapterCtr.Id("id_1","id")));
-				if(!quyen.equals("1")) {JOptionPane.showMessageDialog(null,"Bạn không được sử dụng chức năng này!");
-				return;
+				if(txtTenNv.getText().equals("")) JOptionPane.showMessageDialog(null, "Kiểm tra lại tên");
+				else if(chonGioitinh.equals("1")||chonGioitinh.equals("0")) 
+				{
+					adapterMd.ThemNhanVien(txtTenNv.getText(),txtChucvu.getText(),txtLuong.getText(),txtNamsinh.getText(),chonGioitinh,txtChuthich.getText());
+					adapterMd=new TruyvanKaraoke();
+					tblNv.setModel(adapterMd.loadAllNv());
+					txtTenNv.setText("");
+					txtChucvu.setText("");
+					txtChuthich.setText("");
+					txtLuong.setText("");
+					txtNamsinh.setText("");
+					IdNv="";
+					comboBox.setModel(new DefaultComboBoxModel(new String[] {"--Chọn--", "Nam", "Nữ"}));
 				}
-		if(txtTenNv.getText().equals("")) JOptionPane.showMessageDialog(null, "Kiểm tra lại tên");
-		else if(chonGioitinh.equals("1")||chonGioitinh.equals("0")) 
-		{
-			  adapterMd.ThemNhanVien(txtTenNv.getText(),txtChucvu.getText(),txtLuong.getText(),txtNamsinh.getText(),chonGioitinh,txtChuthich.getText());
-			  adapterMd=new TruyvanKaraoke();
-			  tblNv.setModel(adapterMd.loadAllNv());
-			  
-			
-		}
-		else
-		{
-			JOptionPane.showMessageDialog(null, "Chưa chọn giới tính");
-		}
-			}
-		});
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Chưa chọn giới tính");
+				}
+				}
+                });
 		
 		JLabel lblNewLabel_8 = new JLabel("QUẢN LÝ NHÂN VIÊN");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 16));

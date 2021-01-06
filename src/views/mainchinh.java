@@ -3,18 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package QLYKARAOKE;
+package views;
 
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.border.*;
+
+import connection.KetnoiKaraoke;
+import controllers.TruyvanKaraoke;
 /**
  *
  * @author nguyenchienjf
  */
 public class mainchinh extends javax.swing.JFrame {
-        TruyvanKaraoke adapterMd;
+    TruyvanKaraoke adapterMd;
 	KetnoiKaraoke adapterCtr;
 	private JPanel contentPane;
 	private JTextField txtTenKh;
@@ -418,13 +421,13 @@ public class mainchinh extends javax.swing.JFrame {
 		JButton btnNewButton_7 = new JButton();
                 btnNewButton_7.setFont(new Font("Tahoma", Font.BOLD, 13));
                 btnNewButton_7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/print.png"))); 
-                btnNewButton_7.setText("Thông Tin");
+                btnNewButton_7.setText("Doanh thu");
                 btnNewButton_7.setBackground(new Color(255 ,246 ,143));
 		btnNewButton_7.setBounds(700, 13, 135, 42);
                 contentPane.add(btnNewButton_7);
 		btnNewButton_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		thongtin tt=new thongtin();
+		doanhthu tt=new doanhthu();
 		tt.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		tt.setVisible(true);
 		tt.setLocationRelativeTo(null);

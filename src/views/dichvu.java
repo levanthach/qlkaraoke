@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package QLYKARAOKE;
+package views;
 
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
+
+import connection.KetnoiKaraoke;
+import controllers.TruyvanKaraoke;
 /**
  *
  * @author nguyenchienjf
@@ -211,7 +214,7 @@ public class dichvu extends javax.swing.JFrame {
 		lblTongtien.setBounds(387, 275, 144, 23);
 		panel_3.add(lblTongtien);
 		
-		JLabel lblkaraoke = new JLabel("KARAOKE NGUYỄN CHIẾN JF");
+		JLabel lblkaraoke = new JLabel("KARAOKE NHẬP MÔN CNPM");
                 lblkaraoke.setFont(new Font("Times New Roman", Font.BOLD, 16));
                 lblkaraoke.setForeground(new Color(0, 0, 238));
 		lblkaraoke.setBounds(160, 25, 300, 34);

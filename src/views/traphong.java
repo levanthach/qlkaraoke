@@ -3,21 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package QLYKARAOKE;
+package views;
 
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
+
+import connection.KetnoiKaraoke;
+import controllers.TruyvanKaraoke;
 /**
  *
  * @author nguyenchienjf
  */
 public class traphong extends javax.swing.JFrame {
     
-        TruyvanKaraoke adapterMd=new TruyvanKaraoke();
-        KetnoiKaraoke adapterCtr=new KetnoiKaraoke();
+    TruyvanKaraoke adapterMd=new TruyvanKaraoke();
+    KetnoiKaraoke adapterCtr=new KetnoiKaraoke();
 	private JPanel contentPane;
 	private JTextField txttenphong;
 	private JTextField txtloaiphong;
@@ -38,12 +41,13 @@ public class traphong extends javax.swing.JFrame {
 	private JLabel lbltientt;
 	private JTextField txtgioden;
 	private JTextField txtgioht;
+	private int thanhtoan;
     /**
      * Creates new form viewBienlai
      */
     public traphong() {
         initComponents();
-        setTitle("Hóa Đơn Karaoke Nguyễn Chiến JF");
+        setTitle("Hóa Đơn Karaoke");
 		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -228,6 +232,8 @@ public class traphong extends javax.swing.JFrame {
 			adapterMd.XoaKnpTp(idP);
 			// xóa hợp đồng thuê phòng theo phòng
 			adapterMd.XoaHdTp(idP);
+			// lưu doanh thu
+			adapterMd.luuDoanhThu(thanhtoan);
 			JOptionPane.showMessageDialog(null,"Đã in biên lai, tất cả dữ liệu đã xóa!");
 			tblphong.setModel(adapterMd.loadPhong("1"));
 	}
@@ -320,7 +326,7 @@ public class traphong extends javax.swing.JFrame {
 			    	}
 			    else tien=Integer.parseInt(sogio)*Integer.parseInt(txtgiaphong.getText().toString());
 			    txttongtien.setText(tien+" VNĐ");
-			    int thanhtoan=tien+Integer.parseInt(adapterCtr.demTien(adapterCtr.demtien2(idP)));
+			    thanhtoan=tien+Integer.parseInt(adapterCtr.demTien(adapterCtr.demtien2(idP)));
 			    lbltientt.setText(thanhtoan+" VNĐ");
 			}
 		});

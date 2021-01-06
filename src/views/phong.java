@@ -3,13 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package QLYKARAOKE;
+package views;
 
 
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.border.*;
+
+import connection.KetnoiKaraoke;
+import controllers.TruyvanKaraoke;
+
 import java.util.*;
 /**
  *
@@ -17,12 +21,12 @@ import java.util.*;
  */
 public class phong extends javax.swing.JFrame {
     
-        TruyvanKaraoke adapterMd = new TruyvanKaraoke();
+    TruyvanKaraoke adapterMd = new TruyvanKaraoke();
 	KetnoiKaraoke adapterCtr = new KetnoiKaraoke();
 	private JPanel contentPane;
 	private JTextField txtTen;
 	private JTextField txtGia;
-	private JTextField txtNote;
+	private JTextField txtId;
 	private JTable tblPhong;
 	private JComboBox cmbLp;
 	private JComboBox comboBox;
@@ -109,6 +113,8 @@ public class phong extends javax.swing.JFrame {
 				namephong=tblPhong.getValueAt(tblPhong.getSelectedRow(), 4).toString();
 				id = tblPhong.getModel().getValueAt(tblPhong.getSelectedRow(), 0).toString();
 				txtTen.setText(tblPhong.getModel().getValueAt(tblPhong.getSelectedRow(), 1).toString());
+				txtId.setText(id);
+				txtGia.setText(tblPhong.getModel().getValueAt(tblPhong.getSelectedRow(), 3).toString());
 			}
 		});
 		scrollPane.setViewportView(tblPhong);
@@ -124,8 +130,7 @@ public class phong extends javax.swing.JFrame {
 						|| txtGia.getText().toString().equals("")) {
 					JOptionPane.showMessageDialog(null, "Kiểm tra lại!");
 				} else {
-					adapterMd.ThemPhong(txtTen.getText().toString(), chonloaiphong, txtGia.getText().toString(),
-							txtNote.getText().toString());
+					adapterMd.ThemPhong(txtTen.getText().toString(), chonloaiphong, txtGia.getText().toString());
 					adapterCtr = new KetnoiKaraoke();
 					// load lên tất cả dữ liêu phòng
 					tblPhong.setModel(adapterCtr.timKiemPhong(6));
@@ -166,14 +171,14 @@ public class phong extends javax.swing.JFrame {
 		lblNewLabel_2.setBounds(252, 34, 99, 14);
 		panel_1.add(lblNewLabel_2);
 
-		txtNote = new JTextField();
-		txtNote.setBounds(86, 62, 140, 30);
-		panel_1.add(txtNote);
-		txtNote.setColumns(10);
+		// txtId = new JTextField();
+		// txtId.setBounds(86, 62, 140, 30);
+		// panel_1.add(txtId);
+		// txtId.setColumns(10);
 
-		JLabel lblNewLabel_4 = new JLabel("Chú thích :");
-		lblNewLabel_4.setBounds(10, 67, 67, 14);
-		panel_1.add(lblNewLabel_4);
+		// JLabel lblNewLabel_4 = new JLabel("Id :");
+		// lblNewLabel_4.setBounds(10, 67, 67, 14);
+		// panel_1.add(lblNewLabel_4);
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Tìm kiếm phòng:",TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 51)));
